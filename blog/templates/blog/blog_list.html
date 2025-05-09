@@ -1,0 +1,58 @@
+{% extends 'accounts/base.html' %}
+{% load static %}
+{% load sass_tags %}
+
+
+{% block title %}All Blogs{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    {% include 'blog/_header.html' %}
+    <!-- <h2 class="mb-4">Blog Posts</h2> -->
+    <div class="blog_cards mt-4">
+    {% for blog in blogs %}
+    <div>
+        <a class="card mb-3 blog_card" href="/{{blog.id}}">
+           
+            <div class="card-body card_body">
+            <!-- <div class="blog_image"> -->
+                <img src="{% static 'blog/images/african-man-holding-and-counting-money-isolated-B6T292.jpg' %}" alt="Description">
+            <!-- </div> -->
+            <div class="blog_details">
+                <span class=" bg-white category ">{{ blog.get_category_display }}</span>
+                <div class="content">
+                <h4 class="title">{{ blog.title }}</h4>
+                <p class="description">{{ blog.description }}</p>
+                </div>
+                <div class="user_detailss" >
+                    <div class="avatar"></div>
+                    <p class="username">{{blog.user.username}}</p>
+                    <p>-</p>
+                <p class="date">{{ blog.created_at|date:"F j, Y" }}</p>
+               
+            </div>
+            
+            </div>
+            </div>
+          
+        </a>
+        {% if blog.user == request.user %}
+        
+        <a href="{% url 'blog-delete' blog.pk %}" class="btn btn-sm btn-outline-danger">Delete</a>
+        {% endif %}
+               
+    </div>
+    {% empty %}
+        <p>No blogs found.</p>
+    {% endfor %}
+    <div>
+    <a class="add" href="{% url 'blog-create' %}"><i class="fas fa-plus"></i></a>
+    </div>
+</div>
+</div>
+{% endblock %}
+
+<!-- <div class="mt-2">
+                    <a href="{% url 'blog-update' blog.pk %}" class="btn btn-sm btn-outline-info">Edit</a>
+                    <a href="{% url 'blog-delete' blog.pk %}" class="btn btn-sm btn-outline-danger">Delete</a>
+                </div> -->

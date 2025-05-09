@@ -1,0 +1,26 @@
+<!-- login.html -->
+{% extends 'accounts/base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<div class="col-md-6 col-lg-4 mx-auto">
+<h2 class="text-center">Login</h2>
+<form method="POST" class="card p-4 shadow-sm forms">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label class="form-label">Username:</label>
+        <input type="text" name="username" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Password:</label>
+        <input type="password" name="password" class="form-control" required>
+    </div>
+    <button type="submit" class="btn btn-primary w-100">Login</button>
+    <div class="text-center mt-3">
+        <p>Don't have an account? <a href="{% url 'signup' %}">Sign up</a></p>
+    </div>
+</form>
+
+</div>
+{% endblock %}

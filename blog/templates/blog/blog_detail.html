@@ -1,0 +1,104 @@
+{% extends 'accounts/base.html' %}
+{% load static %}
+{% load sass_tags %}
+{% block title %}{{ blog.title }}{% endblock %}
+{% load widget_tweaks %}
+{% block content %}
+<div class="container py-5 blog_details">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <!-- Blog Card -->
+            <div class="card shadow-lg rounded-4 overflow-hidden border-0">
+                <!-- Blog Image -->
+                <img src="{% static 'blog/images/african-man-holding-and-counting-money-isolated-B6T292.jpg' %}" 
+                     alt="{{ blog.title }}" class="img-fluid w-100" style="object-fit: cover; height: 400px;">
+
+                <!-- Blog Content -->
+                <div class="card-body p-5">
+                    <span class="badge bg-primary mb-3 px-3 py-2 fs-6">{{ blog.get_category_display }}</span>
+                    <h1 class="mb-3 fw-bold">{{ blog.title }}</h1>
+                    <p class="text-muted fs-5">{{ blog.description }}</p>
+
+                    <!-- Metadata -->
+                    <div class="d-flex align-items-center mb-4">
+                        <div class="avatar bg-secondary me-3" style="width: 40px; height: 40px; border-radius: 50%;"></div>
+                        <div class="d-flex gap-4">
+                            <div class="d-flex gap-2 align-items-center"> <span>by</span> <h6 class="mb-0 text-decoration-underline"> {{ blog.user.username }}</h6></div>
+                            <small class="text-muted d-flex align-items-center gap-2">
+                                <i class="fas fa-calendar-alt"></i>
+                                {{ blog.created_at|date:"F j, Y" }}</small>
+                        </div>
+                    </div>
+
+                    <!-- Full Blog Text -->
+                    <div class="blog-text fs-5 lh-lg">
+                        {{ blog.text|linebreaks }}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Comments Section -->
+            <div class="mt-5">
+                <div class="mt-5">
+                    <h4>Comments</h4>
+                    {% for comment in comments %}
+                        <div class="comment mb-3 d-flex gap-2">
+                           <div> <div class="avatar bg-secondary me-3" style="width: 40px; height: 40px; border-radius: 50%;"></div>
+                            <div>  <p><strong>{{ comment.blog.user.username }}:</strong></p></div>
+                            <p>{{ comment.text }}</p>
+                            <small class="text-muted">{{ comment.created_at|date:"F j, Y, g:i a" }}</small>
+                        </div>
+                    {% empty %}
+                        <p>No comments yet.</p>
+                    {% endfor %}
+                </div>
+                
+                <!-- Comment Form -->
+                {% if user.is_authenticated %}
+                    <div class="mt-4">
+                        <form method="post" action="{% url 'detail_view' blog.id %}" class="d-flex w-100 comment_input align-items-center">
+                            {% csrf_token %}
+                            <div class="w-100">
+                                <!-- Input field with custom class -->
+                                {{ form.text|add_class:"form-control form-control-lg" }}
+                            </div>
+                            <div class="ms-3">
+                                <!-- Submit button styled -->
+                                <button type="submit" class="btn btn-primary btn-lg">Post</button>
+                            </div>
+                        </form>
+                    </div>
+                {% else %}
+                <p class="login-notice mt-4">
+                    You must be <a href="{% url 'login' %}">logged in</a> to comment.
+                  </p>
+                  
+                {% endif %}
+            <h3 class="mb-4 mt-4">Related Posts</h3>
+    <div class="row">
+        {% for post in related_posts %}
+        <div class="col-md-6 col-lg-4 mb-4">
+            <a href="{% url 'detail_view' post.id %}" class="text-decoration-none text-dark">
+                <div class="card h-100 shadow-sm">
+                    <img src="{% static 'blog/images/african-man-holding-and-counting-money-isolated-B6T292.jpg' %}" 
+                         class="card-img-top" alt="{{ post.title }}" style="height: 200px; object-fit: cover;">
+                    <div class="card-body">
+                        <span class="badge bg-light text-dark mb-2">{{ post.get_category_display }}</span>
+                        <h5 class="card-title">{{ post.title }}</h5>
+                        <p class="card-text text-muted small">{{ post.created_at|date:"F j, Y" }}</p>
+                        <p class="card-text">{{ post.description|truncatechars:100 }}</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+        {% empty %}
+        <p class="text-muted">No related posts found.</p>
+        {% endfor %}
+    </div>
+        </div>
+        
+    </div>
+
+    
+</div>
+{% endblock %}

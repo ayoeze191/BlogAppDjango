@@ -1,0 +1,42 @@
+{% extends 'accounts/base.html' %}
+{% load forms %}
+{% block title %}Blog Form{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-md-10 col-sm-12">
+            <div class="card shadow-sm border-0 rounded">
+                <div class="card-header text-center bg-primary text-white">
+                    <h3>Create a New Blog</h3>
+                </div>
+                <div class="card-body">
+                    <form method="POST">
+                        {% csrf_token %}
+                        <div class="mb-4">
+                            <label for="id_title" class="form-label">Title</label>
+                            {{ form.title|add_class:"form-control" }}
+                        </div>
+                        <div class="mb-4">
+                            <label for="id_category" class="form-label">Category</label>
+                            {{ form.category|add_class:"form-select" }}
+                        </div>
+                        <div class="mb-4">
+                            <label for="id_description" class="form-label">Description</label>
+                            {{ form.description|add_class:"form-control" }}
+                        </div>
+                        <div class="mb-4">
+                            <label for="id_text" class="form-label">Content</label>
+                            {{ form.text|add_class:"form-control" }}
+                        </div>
+                      
+                        <div class="d-flex justify-content-end">
+                            <button type="submit" class="btn btn-primary">Create Blog</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

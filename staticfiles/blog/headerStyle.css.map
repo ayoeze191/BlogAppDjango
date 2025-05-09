@@ -1,0 +1,9 @@
+{
+	"version": 3,
+	"file": "headerStyle.css",
+	"sources": [
+		"headerStyle.scss"
+	],
+	"names": [],
+	"mappings": "AAAA,AACA,OADO,CACP,IAAI,CAAC;EACD,UAAU,EAAE,GAAG,GAClB;;AAHD,AAIA,OAJO,CAIP,MAAM,CAAA;EACF,KAAK,EAAE,IAAI;EACX,UAAU,EAAE,KAAK,GACpB"
+}

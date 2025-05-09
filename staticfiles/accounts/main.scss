@@ -1,0 +1,50 @@
+.login {
+    max-width: 600px;
+}
+
+.forms{
+    // background-color: red !important;
+}
+.test{
+    // color: red;
+}
+
+.header{
+    .top {
+        // background: red;
+    }
+    .input{
+        width: 100%;
+        max-width: 500px;
+    }
+    .input {
+        .btn{
+            font-weight: 700;
+            max-width: 500px !important;
+            border-radius: 8px;
+        }
+    }
+    .desc{
+        max-width: 750px;
+        background-color: red;
+        text-align: center;
+        font-weight: 500;
+    }
+    }
+
+    .header{
+        .top {
+            background: red;
+        }
+        .input{
+            width: 100%;
+            max-height: 500px;
+            
+        }
+        }
+    
+    .blog_cards{
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        background-color: red;
+    }
